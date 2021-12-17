@@ -69,7 +69,7 @@ router
                     categoriesId: id,
                     productsId: product.id
                 }));
-                const data = await productCategory.bulkCreate(product);
+                const data = await productCategory.bulkCreate(dataToInsert);
             }
             res.send(data);
         } catch (error) {
