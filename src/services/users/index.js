@@ -1,5 +1,6 @@
 import express from "express";
 import { Op, Sequelize } from "sequelize";
+import Products from "../../utils/models/products.js";
 import User from "../../utils/models/users.js";
 
 const router = express.Router();
@@ -34,9 +35,11 @@ router
                             },
                         ],
                     }),
+                    // here eventually join table
+                    //include: [{ model: Products, attributes: { exclude: ["readTimeValue"] } }]
+
                 },
-                // here eventually join table
-                //===================
+
             });
             res.send(user)
 

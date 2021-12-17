@@ -1,6 +1,10 @@
 import express from "express";
 import { Op, Sequelize } from "sequelize";
 import Products from "../../utils/models/products.js";
+import Reviews from "../../utils/models/reviews.js";
+import User from "../../utils/models/users.js";
+import Categories from "../../utils/models/categories.js";
+import ShoppingCart from "../../utils/models/shoppingCart.js";
 
 const router = express.Router();
 
@@ -9,6 +13,20 @@ router
     .get(async(req, res, next) => {
         try {
             const product = await Products.findAll({
+                include: [{
+                        model: Categories,
+                        through: { attributes: [] },
+                        where: {
+                            ...(req.query.category && {
+                                categoryName: {
+                                    [Op.in]: req.category.categoryName.split(","),
+                                },
+                            }),
+                        },
+                    },
+                    { model: Reviews, include: User },
+                    User
+                ],
                 where: {
                     ...(req.query.search && {
                         [Op.or]: [{
@@ -44,8 +62,16 @@ router
     })
     .post(async(req, res, next) => {
         try {
-            const product = await Products.create(req.body);
-            res.send(product);
+            const { categoriesId, ...rest } = req.body
+            const product = await Products.create(rest);
+            if (product) {
+                const dataToInsert = categoriesId.map((id) => ({
+                    categoriesId: id,
+                    productsId: product.id
+                }));
+                const data = await productCategory.bulkCreate(product);
+            }
+            res.send(data);
         } catch (error) {
             next(error);
         }

@@ -60,6 +60,16 @@ Reviews.belongsTo(User, { onDelete: "CASCADE" });
 User.hasMany(Products, { onDelete: "CASCADE" });
 Products.belongsTo(User, { onDelete: "CASCADE" });
 
+// ====== users/shoppingcart one to one ==========
+
+User.hasOne(ShoppingCart, { onDelete: "CASCADE" });
+ShoppingCart.belongsTo(User, { onDelete: "CASCADE" });
+
+// ====== products/shoppingcart one to many ==========
+
+Products.hasMany(ShoppingCart, { onDelete: "CASCADE" });
+ShoppingCart.belongsTo(Products, { onDelete: "CASCADE" });
+
 
 
 
