@@ -6,6 +6,13 @@ import Reviews from "./utils/models/reviews.js";
 import Users from "./utils/models/Users.js";
 import Categories from "./utils/models/categories.js";
 import ShoppingCart from "./utils/models/shoppinngCart.js";
+import productsRouter from "./services/products/index.js";
+import shoppingCartRouter from "./services/shoppingCart/index.js";
+import reviewsRouter from "./services/reviews/index.js";
+import categoriesRouter from "./services/categories/index.js";
+import usersRouter from "./services/users/index.js";
+
+
 
 
 const server = express();
@@ -14,11 +21,11 @@ server.use(express.json());
 server.use(cors());
 
 //======== router ================
-// server.use("/product", productsRouter);
-// server.use("/reviews", reviewsRouter);
-// server.use("/users", reviewsRouter);
-// server.use("/categories", reviewsRouter);
-
+server.use("/product", productsRouter);
+server.use("/reviews", reviewsRouter);
+server.use("/users", usersRouter);
+server.use("/categories", categoriesRouter);
+server.use("/shoppingCart", shoppingCartRouter);
 
 
 

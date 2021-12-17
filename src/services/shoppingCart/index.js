@@ -4,7 +4,7 @@ import { Op, Sequelize } from "sequelize";
 const router = express.Router();
 
 
-const router = express.Router();
+
 
 router.route("/")
     .get()
