@@ -9,7 +9,7 @@ router
     .route("/")
     .get(async(req, res, next) => {
         try {
-            const user = User.findAll({
+            const user = await User.findAll({
                 where: {
                     ...(req.query.search && {
                         [Op.or]: [{
@@ -18,7 +18,7 @@ router
                                 },
                             },
                             {
-                                lastname: {
+                                lastName: {
                                     [Op.iLike]: `%${req.query.search}%`
                                 },
                             },
@@ -45,23 +45,32 @@ router
         }
     })
     .post(async(req, res, next) => {
-        try {} catch (error) {}
+        try {
+            const user = await User.create(req.body)
+            res.send(user)
+        } catch (error) {
+            next(error)
+        }
     });
 
-router
-    .route("/bulk")
-    .get(async(req, res, next) => {
-        try {} catch (error) {}
-    })
-    .post(async(req, res, next) => {
-        try {} catch (error) {}
-    })
-    .put(async(req, res, next) => {
-        try {} catch (error) {}
-    })
-    .delete(async(req, res, next) => {
-        try {} catch (error) {}
-    });
+// router
+//     .route("/bulk")
+//     .get(async(req, res, next) => {
+//         try {} catch (error) {}
+//     })
+//     .post(async(req, res, next) => {
+//         try {
+
+//         } catch (error) {
+
+//         }
+//     })
+//     .put(async(req, res, next) => {
+//         try {} catch (error) {}
+//     })
+//     .delete(async(req, res, next) => {
+//         try {} catch (error) {}
+//     });
 
 
 
