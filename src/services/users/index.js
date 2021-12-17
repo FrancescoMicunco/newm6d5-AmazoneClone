@@ -53,25 +53,66 @@ router
         }
     });
 
-// router
-//     .route("/bulk")
-//     .get(async(req, res, next) => {
-//         try {} catch (error) {}
-//     })
-//     .post(async(req, res, next) => {
-//         try {
+router
+    .route("/:id")
+    .get(async(req, res, next) => {
+        try {
+            const user = await User.findOne({
+                where: {
+                    id: req.params.id,
+                },
+                //===== here eventually join
+            });
+            res.send(user);
+        } catch (error) {
+            next(error);
+        }
+    })
 
-//         } catch (error) {
+.put(async(req, res, next) => {
+    try {
+        const updateUser = await User.update(req.body, {
+            where: { id: req.params.id },
+            returning: true,
+        });
+        res.send(updateUser)
 
-//         }
-//     })
-//     .put(async(req, res, next) => {
-//         try {} catch (error) {}
-//     })
-//     .delete(async(req, res, next) => {
-//         try {} catch (error) {}
-//     });
 
+    } catch (error) {
+        next(error)
+    }
+})
+
+
+
+.delete(async(req, res, next) => {
+    try {
+        const deletedUser = await User.destroy({
+            where: { id: req.params.id, },
+
+        });
+        if (deletedUser > 0) {
+            res.send("201. Usere deleted");
+        } else {
+            ("User not found!");
+        }
+    } catch (error) {
+        next(error)
+    }
+});
+
+
+
+
+//======== here bulk section
+//   .post(async (req, res, next) => {
+//     try {
+//       const user = await User.bulkCreate(req.body);
+//       res.send(user);
+//     } catch (error) {
+//       next(error);
+//     }
+//   });
 
 
 
