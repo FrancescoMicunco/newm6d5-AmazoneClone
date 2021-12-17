@@ -85,7 +85,8 @@ router
                 where: {
                     id: req.params.id,
                 },
-                //===== here eventually join
+                include: [User, Reviews]
+                    //===== here eventually join
             });
             res.send(product);
         } catch (error) {
