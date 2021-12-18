@@ -62,16 +62,15 @@ router
     })
     .post(async(req, res, next) => {
         try {
-            const { categoriesId, ...rest } = req.body
-            const product = await Products.create(rest);
-            if (product) {
-                const dataToInsert = categoriesId.map((id) => ({
-                    categoriesId: id,
-                    productsId: product.id
-                }));
-                const data = await productCategory.bulkCreate(product);
-            }
-            res.send(data);
+            // const { categoriesId, ...rest } = req.body
+            const product = await Products.create(req.body);
+            // if (product) {
+            //     const dataToInsert = categoriesId.map((id) => ({
+            //         categoriesId: id,
+            //         productsId: product.id
+            //     }));
+            // }
+            res.send(product);
         } catch (error) {
             next(error);
         }

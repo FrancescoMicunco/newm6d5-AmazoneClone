@@ -12,26 +12,10 @@ router
                 where: {
                     ...(req.query.search && {
                         [Op.or]: [{
-                                name: {
-                                    [Op.iLike]: `%${req.query.search}%`,
-                                },
+                            categoryName: {
+                                [Op.iLike]: `%${req.query.search}%`,
                             },
-                            {
-                                lastName: {
-                                    [Op.iLike]: `%${req.query.search}%`,
-                                },
-                            },
-                            {
-                                email: {
-                                    [Op.iLike]: `%${req.query.search}%`,
-                                },
-                            },
-                            {
-                                country: {
-                                    [Op.iLike]: `%${req.query.search}%`,
-                                },
-                            },
-                        ],
+                        }, ],
                     }),
                 },
                 // here eventually join table
@@ -81,13 +65,13 @@ router
 
 .delete(async(req, res, next) => {
     try {
-        const deletedCategorie = await Categories.destroy({
+        const deletedCategory = await Categories.destroy({
             where: { id: req.params.id },
         });
-        if (deletedCategorie > 0) {
-            res.send("201. categoriee deleted");
+        if (deletedCategory > 0) {
+            res.send("201. category deleted");
         } else {
-            ("categorie not found!");
+            ("category not found!");
         }
     } catch (error) {
         next(error);
