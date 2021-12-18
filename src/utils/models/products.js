@@ -24,6 +24,8 @@ const Products = sequelize.define("product", {
         type: DataTypes.FLOAT,
         allowNull: false,
     },
+
+
 });
 
 export default Products;

@@ -13,20 +13,22 @@ router
     .get(async(req, res, next) => {
         try {
             const product = await Products.findAll({
-                include: [{
-                        model: Categories,
-                        through: { attributes: [] },
-                        where: {
-                            ...(req.query.category && {
-                                categoryName: {
-                                    [Op.in]: req.category.categoryName.split(","),
-                                },
-                            }),
-                        },
-                    },
-                    { model: Reviews, include: User },
-                    User
-                ],
+                include: User,
+                Categories,
+                // [{
+                //         model: Categories,
+                //         through: { attributes: [] },
+                //         where: {
+                //             ...(req.query.category && {
+                //                 categoryName: {
+                //                     [Op.in]: req.category.categoryName.split(","),
+                //                 },
+                //             }),
+                //         },
+                //     },
+                //     { model: Reviews, include: User },
+                //     User
+                // ],
                 where: {
                     ...(req.query.search && {
                         [Op.or]: [{

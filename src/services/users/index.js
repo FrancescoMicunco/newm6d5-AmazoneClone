@@ -11,6 +11,7 @@ router
     .get(async(req, res, next) => {
         try {
             const user = await User.findAll({
+                include: Products,
                 where: {
                     ...(req.query.search && {
                         [Op.or]: [{
