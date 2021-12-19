@@ -25,7 +25,7 @@ server.use("/product", productsRouter);
 server.use("/reviews", reviewsRouter);
 server.use("/users", usersRouter);
 server.use("/categories", categoriesRouter);
-server.use("/shoppingCart", shoppingCartRouter);
+server.use("/cart", shoppingCartRouter);
 
 
 
